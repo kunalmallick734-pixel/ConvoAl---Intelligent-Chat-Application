@@ -33,9 +33,7 @@ const Chat = () => {
         {/* Header */}
         <AIHeader
           id={""}
-          open={isOpen}
           setIsOpen={setIsOpen}
-          toggleSidebar={toggleSidebar}
         />
 
         {/* Input Message */}

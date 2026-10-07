@@ -3,17 +3,18 @@ import { ChevronDown, CircleDotDashedIcon, Rocket, Share, Trash, } from "lucide-
 import SidebarIcon from "@/components/Icons/Sidebar/Index";
 import NewChatIcon from "@/components/Icons/newChat";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import { useSidebar } from "@/components/ui/sidebar";
 import CustomSwitch from "../CostomSwitch";
 import Button from "@/components/Multipurpose/Button/Index";
 import ModalShareChat from "../ShareChat";
 import ModalDeleteChat from "../DeleteChat";
 import { SignedIn, UserButton } from "@clerk/nextjs";
-const AIHeader = ({ setIsOpen, open, toggleSidebar, id }: {
+
+const AIHeader = ({ setIsOpen, id }: {
     setIsOpen: Dispatch<SetStateAction<boolean>>,
-    open: boolean,
-    toggleSidebar: () => void,
     id: string
 }) => {
+    const { toggleSidebar, open } = useSidebar();
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
     const [isOpenShareChat, setIsOpenShareChat] = useState<boolean>(false)
     const [openDeleteChat, setOpenDeleteChat] = useState<boolean>(false)
@@ -37,25 +38,27 @@ const AIHeader = ({ setIsOpen, open, toggleSidebar, id }: {
     }, [isDarkMode]);
 
     return (
-        <div className="flex h-16 dark:bg-neutral-900 border-b dark:border-gray-700 bg-white  border-gra p-2 sticky top-0 z-20 items-center justify-around">
+        <div className="flex h-16 dark:bg-neutral-900 border-b dark:border-gray-700 bg-white border-gray-200 p-2 sticky top-0 z-20 items-center justify-between">
             {/* Modaling Share Chat */}
             <ModalShareChat id={id} isOpen={isOpenShareChat} onClose={() => setIsOpenShareChat(false)} />
             {/* Modaling Delete Chat */}
             <ModalDeleteChat isOpen={openDeleteChat} onClose={() => { setOpenDeleteChat(false) }} id={id} ></ModalDeleteChat>
-            {/* icons */}
-            <div className="w-full z-[2] flex gap-0.5">
-
-
-                {/* sidebar and create new chat  icons  */}
-
-                <Button onClick={toggleSidebar} role="Open Sidebar" align="right">
-                    <div className={` cursor-pointer p-1  md:p-2 rounded-2xl hover:bg-gray-200 dark:hover:bg-gray-800 md:${open && 'hidden'}`} >
-                        <SidebarIcon />
+            
+            {/* icons left */}
+            <div className="z-[2] flex items-center gap-1">
+                {/* sidebar and create new chat icons (only shown when sidebar is closed) */}
+                {!open && (
+                    <div className="flex items-center gap-0.5">
+                        <Button onClick={toggleSidebar} role="Open Sidebar" align="right">
+                            <div className="cursor-pointer p-1 md:p-2 rounded-2xl hover:bg-gray-200 dark:hover:bg-gray-800">
+                                <SidebarIcon />
+                            </div>
+                        </Button>
+                        <Button role="Create New chat" align="right">
+                            <NewChatIcon func={() => setIsOpen(true)} className="rounded-2xl hidden md:flex cursor-pointer p-1 md:p-2 hover:bg-gray-200 dark:hover:bg-gray-800" />
+                        </Button>
                     </div>
-                </Button>
-                <Button role="Create New chat" align="right">
-                    <NewChatIcon func={() => setIsOpen(true)} className="rounded-2xl hidden md:flex cursor-pointer p-1 md:p-2 hover:bg-gray-200 dark:hover:bg-gray-800" />
-                </Button>
+                )}
 
 
                 {/* options for small devices */}

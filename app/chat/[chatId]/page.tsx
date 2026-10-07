@@ -105,9 +105,7 @@ const Chat = () => {
         {/* Header */}
         <AIHeader
           id={chatId}
-          open={isOpen}
           setIsOpen={setIsOpen}
-          toggleSidebar={toggleSidebar}
         />
 
         {/* loading messages */}

@@ -7,8 +7,8 @@ import { ClerkProvider } from '@clerk/nextjs'
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex min-h-screen w-full flex-1 min-w-0 bg-gray-50 text-gray-900">
-      <main className="flex w-full flex-1 min-w-0 flex-col bg-gray-50 dark:bg-black dark:text-white">
+    <div className="flex h-screen w-full flex-1 min-w-0 overflow-hidden bg-gray-50 text-gray-900">
+      <main className="flex w-full h-full flex-1 min-w-0 flex-col overflow-hidden bg-gray-50 dark:bg-black dark:text-white">
         {children}
       </main>
     </div>
