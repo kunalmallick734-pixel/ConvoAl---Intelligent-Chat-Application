@@ -94,49 +94,52 @@ const Chat = () => {
     , [chatId, appendMessage]);
 
   return (
-    <div className="h-[100vh] overflow-hidden absolute top-0 w-full dark:bg-neutral-900 bg-white dark:text-white">
-      {/* modeling login and register */}
-      <ModalAuthentication />
-      {/* Header */}
-      <AIHeader
-        id={chatId}
-        open={isOpen}
-        setIsOpen={setIsOpen}
-        toggleSidebar={toggleSidebar}
-      />
-
+    <div className="flex h-screen w-full overflow-hidden relative dark:bg-neutral-900 bg-white dark:text-white">
       {/* Sidebar */}
       <AppSidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
-      {/* loading messages */}
-      {
-        fetchingMessages && messages?.length === 0 && (
-          <div className="absolute top-40 w-screen h-4/5 flex gap-10 flex-col md:px-30">
-            <Skeleton className="w-1/2 h-1/9  translate-x-full" />
-            <Skeleton className="w-4/5 h-4/6  mr-1/2" />
-          </div>
-        )
-      }
-      {/* Chat Messages */}
-      <AiMessages
-        sendMessage={sendEdditedMessageToAi}
-        setSelectedTextForQuery={setSelectedTextForQuery}
-        loading={loading}
-        handleCopy={handleCopy}
-        handleEdit={handleEdit}
-        copiedIndex={copiedIndex}
-        chatId={chatId}
-        messages={messages}
-      />
-      {/* Input Message */}
-      <div className={`${animateInputToBottom ? "-bottom-14" : "bottom-1/3"} transition-all duration-700 md:px-4 bg-transparent px-2 flex flex-col-reverse gap-1  items-center justify-center absolute w-full dark:text-white z-10`}>
-        <InputMessage
-          chatStarted={chatId !== ""}
-          selectedTextForQuery={selectedTextForQuery}
-          setSelectedTextForQuery={setSelectedTextForQuery}
-          ref={inputRef}
-          sendMessage={sendMessageToAi}
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col h-screen overflow-hidden relative min-w-0">
+        {/* modeling login and register */}
+        <ModalAuthentication />
+        {/* Header */}
+        <AIHeader
+          id={chatId}
+          open={isOpen}
+          setIsOpen={setIsOpen}
+          toggleSidebar={toggleSidebar}
         />
+
+        {/* loading messages */}
+        {
+          fetchingMessages && messages?.length === 0 && (
+            <div className="absolute top-40 w-full h-4/5 flex gap-10 flex-col px-4 md:px-12">
+              <Skeleton className="w-1/2 h-1/9 translate-x-full" />
+              <Skeleton className="w-4/5 h-4/6 mr-1/2" />
+            </div>
+          )
+        }
+        {/* Chat Messages */}
+        <AiMessages
+          sendMessage={sendEdditedMessageToAi}
+          setSelectedTextForQuery={setSelectedTextForQuery}
+          loading={loading}
+          handleCopy={handleCopy}
+          handleEdit={handleEdit}
+          copiedIndex={copiedIndex}
+          chatId={chatId}
+          messages={messages}
+        />
+        {/* Input Message */}
+        <div className={`${animateInputToBottom ? "bottom-4" : "bottom-1/3"} transition-all duration-700 md:px-4 bg-transparent px-2 flex flex-col-reverse gap-1 items-center justify-center absolute w-full dark:text-white z-10 pointer-events-auto`}>
+          <InputMessage
+            chatStarted={chatId !== ""}
+            selectedTextForQuery={selectedTextForQuery}
+            setSelectedTextForQuery={setSelectedTextForQuery}
+            ref={inputRef}
+            sendMessage={sendMessageToAi}
+          />
+        </div>
       </div>
     </div>
   );

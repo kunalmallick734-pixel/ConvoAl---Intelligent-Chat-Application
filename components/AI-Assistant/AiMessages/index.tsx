@@ -25,17 +25,16 @@ const AiMessages = ({ loading, className, messages, sendMessage, setSelectedText
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   return (
-    <div className={`flex pt-16 flex-col dark:bg-neutral-900 h-full border-y-2 ${className} ${(!chatId) && "hidden"}   ${messages.length && "border-y-2"}`}>
-      <div ref={wrapperRef} className="md:px-30  px-2 overflow-x-hidden flex-1 overflow-y-auto ">
-        <div className="p-4 space-y-16  ">
+    <div className={`flex flex-1 min-h-0 flex-col dark:bg-neutral-900 w-full overflow-hidden ${className} ${(!chatId) && "hidden"}`}>
+      <div ref={wrapperRef} className="max-w-4xl mx-auto w-full px-4 md:px-8 overflow-x-hidden flex-1 overflow-y-auto">
+        <div className="py-6 space-y-8">
           {messages.length > 0 && messages.map((msg, index) => (
             <RenderMessages loading={loading} sendMessage={sendMessage} key={index} msg={msg} handleEdit={handleEdit} setSelectedTextForQuery={setSelectedTextForQuery} wrapperRef={wrapperRef} index={index} handleCopy={handleCopy} />
           ))}
           {/* target div for scroll down */}
         </div>
-        <div id="targetDiv" className={`${loading ? "h-[50vh]" : "h-[40vh]"}`}></div>
+        <div id="targetDiv" className={`${loading ? "h-64" : "h-48"}`}></div>
       </div>
-
     </div>
   )
 }

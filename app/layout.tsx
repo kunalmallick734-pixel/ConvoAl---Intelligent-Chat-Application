@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Chatbot",
+  title: "Convo AI",
   description: "An intelligent AI chatbot powered by Next.js and Google Gemini",
   icons: {
     icon: "/logo.png",

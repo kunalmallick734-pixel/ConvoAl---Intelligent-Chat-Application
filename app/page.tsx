@@ -22,26 +22,29 @@ const Chat = () => {
     });
   }, [ appendMessage]);
   return (
-    <div className="h-[100vh] overflow-hidden absolute top-0 w-full dark:bg-neutral-900 bg-white dark:text-white">
-      {/* modeling authentication */}
-      <ModalAuthentication/>
-      {/* Header */}
-      <AIHeader
-        id={""}
-        open={isOpen}
-        setIsOpen={setIsOpen}
-        toggleSidebar={toggleSidebar}
-      />
-
+    <div className="flex h-screen w-full overflow-hidden relative dark:bg-neutral-900 bg-white dark:text-white">
       {/* Sidebar */}
       <AppSidebar setIsOpen={setIsOpen} isOpen={isOpen}/>
 
-      {/* Input Message */}
-      <div className={` bottom-1/3 transition-all duration-700 md:px-4 bg-transparent px-2 flex flex-col-reverse gap-1  items-center justify-center absolute w-full dark:text-white z-10`}>
-        <InputMessage
-          ref={inputRef}
-          sendMessage={sendMessageToAi}
+      {/* Main Area */}
+      <div className="flex-1 flex flex-col h-screen overflow-hidden relative min-w-0">
+        {/* modeling authentication */}
+        <ModalAuthentication/>
+        {/* Header */}
+        <AIHeader
+          id={""}
+          open={isOpen}
+          setIsOpen={setIsOpen}
+          toggleSidebar={toggleSidebar}
         />
+
+        {/* Input Message */}
+        <div className={`bottom-1/3 transition-all duration-700 md:px-4 bg-transparent px-2 flex flex-col-reverse gap-1 items-center justify-center absolute w-full dark:text-white z-10`}>
+          <InputMessage
+            ref={inputRef}
+            sendMessage={sendMessageToAi}
+          />
+        </div>
       </div>
     </div>
   );

@@ -150,9 +150,9 @@ const AIHeader = ({ setIsOpen, open, toggleSidebar, id }: {
 
             {/* Header Name */}
 
-            <div className=" w-[100%] h-[100%] absolute top-0 flex items-center justify-center text-center text-3xl md:text-4xl lg:text-5xl  font-semibold ">
+            <div className=" w-[100%] h-[100%] absolute top-0 left-0 flex items-center justify-center text-center text-3xl md:text-4xl lg:text-5xl font-semibold pointer-events-none">
                 <div className="bg-gradient-to-r via-[#ed0f82] from-[#d54cff] to-[#ff118c] bg-clip-text text-transparent">
-                    Chat Assistant
+                    Convo AI
                 </div>
             </div>
 

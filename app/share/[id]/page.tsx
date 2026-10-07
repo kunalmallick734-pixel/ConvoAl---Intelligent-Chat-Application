@@ -43,9 +43,9 @@ const Chat = () => {
 
       {/* Header */}
       <div className="flex h-16 md:h-18 border-b-2 dark:border-gray-600 border-gray-300  gap-2 p-2 sticky top-0 z-20 items-center justify-end ">
-        <div className=" w-fit h-[100%] left-1 md:left-auto md:right-1/2  md:translate-x-1/2 absolute top-0 flex items-center justify-center text-center text-2xl md:text-4xl lg:text-5xl  font-semibold ">
+        <div className=" w-fit h-[100%] left-1 md:left-auto md:right-1/2  md:translate-x-1/2 absolute top-0 flex items-center justify-center text-center text-2xl md:text-4xl lg:text-5xl  font-semibold pointer-events-none">
           <div className="bg-gradient-to-r via-[#ed0f82] from-[#d54cff] to-[#ff118c] bg-clip-text text-transparent">
-            Chat Assistant
+            Convo AI
           </div>
         </div>
         <SignedOut>
