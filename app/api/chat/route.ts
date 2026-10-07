@@ -13,11 +13,25 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
+    
+    // Use gemini-3.7-flash with graceful fallback
+    const modelNames = ["gemini-3.7-flash", "gemini-3.5-flash", "gemini-flash-latest", "gemini-3.8-flash"];
+    let result = null;
     const lastMessage = body.messages[body.messages.length - 1].content;
 
-    const result = await model.generateContentStream(lastMessage);
+    for (const modelName of modelNames) {
+      try {
+        const model = genAI.getGenerativeModel({ model: modelName });
+        result = await model.generateContentStream(lastMessage);
+        break;
+      } catch (err) {
+        console.warn(`Model ${modelName} failed, trying next...`, (err as Error).message);
+      }
+    }
+
+    if (!result) {
+      throw new Error("Unable to connect to Gemini models. Please try again.");
+    }
 
     const stream = new ReadableStream({
       async start(controller) {
@@ -38,6 +52,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error) {
+    console.error("Gemini Error:", error);
     return NextResponse.json(
       { error: (error as Error).message || "Internal server error" },
       { status: 500 }
